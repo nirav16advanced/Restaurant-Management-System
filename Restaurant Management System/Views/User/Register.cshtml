@@ -1,0 +1,45 @@
+﻿
+
+@{
+    ViewBag.Title = "Register";
+}
+
+<h2>Register User</h2>
+
+@using (Html.BeginForm("Create", "User", FormMethod.Post))
+{
+
+    <div>
+        @Html.LabelFor(x => x.UserName)
+        @Html.TextBoxFor(m => m.UserName, new { @class = "", placeholder = "EnterUserName", style = "margin-bottom:7px;" })
+        @Html.ValidationMessageFor(y => y.UserName)
+        <br />
+
+        @Html.LabelFor(x => x.Password)
+        @Html.PasswordFor(m => m.Password, new { @class = "", placeholder = "Enter Password", style = "margin-bottom:7px;" })
+        @Html.ValidationMessageFor(y => y.Password)
+
+        <br />
+
+        <label>Gender:</label>
+
+        <label>Male</label>
+        @Html.RadioButtonFor(m => m.Gender, "Male")
+
+        <label>Female</label>
+        @Html.RadioButtonFor(m => m.Gender, "Female")
+        <br />
+
+        @Html.LabelFor(x => x.Mobile)
+        @Html.TextBoxFor(m => m.Mobile, new { @class = "", placeholder = "Enter Mobile", style = "margin-bottom:7px;" })
+        @Html.ValidationMessageFor(y => y.Mobile)
+        <br />
+
+        @Html.LabelFor(x => x.Email)
+        @Html.TextBoxFor(m => m.Email, new { @class = "", placeholder = "Enter Email", style = "margin-bottom:7px;" })
+        @Html.ValidationMessageFor(y => y.Email)
+        <br />
+        <input type="submit" value="Register" />
+    </div>
+
+}

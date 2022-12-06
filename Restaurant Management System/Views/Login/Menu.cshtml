@@ -1,0 +1,85 @@
+﻿@model IEnumerable<Restaurant_Management_System.Menu>
+
+@{
+    ViewBag.Title = "Menu";
+}
+<link href="../Content/StyleSheet.css" rel="stylesheet" />
+
+<h2 style="text-align:center">Menu Dashboard</h2>
+<fieldset style="font-size:14px;">
+    @if (Session["UserName"] != null)
+    {
+        <text>Welcome @Session["UserName"].ToString() </text>
+    }
+</fieldset>
+<br />
+
+
+@using (Html.BeginForm("Create", "Login", FormMethod.Get))
+{
+
+    <input type="submit" value="Create New Menu" />
+}
+
+<div>
+    @using (Html.BeginForm("Search", "Login", FormMethod.Get))
+    {
+        @Html.TextBox("search")
+        <input type="submit" value="Search" />
+    }
+
+</div>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+
+            <th>Menu Name</th>
+            <th>Price</th>
+            <th>Type</th>           
+            <th>Category</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>@item.Name</td>
+                <td>@item.Price</td>
+                <td>@item.Type</td>
+
+                <td>@item.CategoryName</td>
+
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { itemid = item.ItemID })
+                    @Html.ActionLink("Delete", "Delete", new { itemid = item.ItemID })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<div id="DivGrid">
+    @{
+        var grid = new WebGrid(source: Model, canPage: true, rowsPerPage: 3, defaultSort: "BookId");
+
+        {
+            <div><strong> @ViewBag.SearchParameter</strong> | @grid.TotalRowCount @Html.Label("Record(s) found")</div>
+            @grid.GetHtml(tableStyle: "PGrid", headerStyle: "Header", htmlAttributes: new { id = "DataTable" }, columns: grid.Columns(
+                     grid.Column("BookId", "Book ID"),
+                     grid.Column("Name", "Book Title"),
+                     grid.Column("Category"),
+                     grid.Column("CategoryId", "Categogy ID"),
+                     grid.Column("", header: "Action", format: @<text>@Html.ActionLink("Edit", "Edit", new { id = item.BookId }) | @Html.ActionLink("Delete", "Delete", new { id = item.BookId })</text>)));
+        }
+
+    }
+</div>
+@using (Html.BeginForm("Logout", "Login"))
+{
+
+    <input type="submit" value="Logout" style="position: absolute; right: 0;" />
+}

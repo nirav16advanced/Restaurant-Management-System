@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Restaurant_Management_System.Menu>
+@{
+    ViewBag.Title = "Search";
+}
+
+
+    <table class="table table-striped">
+        <thred>
+            <tr>
+                <th>Menu Name</th>
+                <th>Price</th>
+                <th>Type</th>
+                
+                <th>CategoryName</th>
+            </tr>
+        </thred>
+        <tbody>
+            @if (Model.Count() == 0)
+            {
+                <tr>
+                    <td colspan="3" style="color:red">
+                        NO match any document
+                    </td>
+                </tr>
+            }
+            else
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@item.Price</td>
+                        <td>@item.Type</td>
+                        
+                        <td>@item.CategoryName</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <div>
+        @Html.ActionLink("Back to List", "Menu")
+    </div>
+

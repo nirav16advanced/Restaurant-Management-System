@@ -1,0 +1,86 @@
+﻿@model  Restaurant_Management_System.Models.UserModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 style="text-align:center">Register User</h2>
+</br>
+
+@using (Html.BeginForm("Create", "User", FormMethod.Post))
+{
+    
+    <div>
+        <table align="center">
+            <tr>
+                <td>@Html.LabelFor(x => x.UserName)</td>
+                <td>@Html.TextBoxFor(m => m.UserName, new { @class = "", placeholder = "EnterUserName", style = "margin-bottom:7px;" })</td>
+                <td>@Html.ValidationMessageFor(y => y.UserName)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Password)</td>
+                <td>@Html.PasswordFor(m => m.Password, new { @class = "", placeholder = "Enter Password", style = "margin-bottom:7px;" })</td>
+                <td>@Html.ValidationMessageFor(y => y.Password)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Confirm)</td>
+                <td>@Html.PasswordFor(m => m.Confirm, new { @class = "", placeholder = "Enter Password again", style = "margin-bottom:7px;" })</td>
+                <td>@Html.ValidationMessageFor(y => y.Confirm)</td>
+            </tr>
+            <tr>
+                <td><label>Gender:</label></td>
+                <td>
+                    <label>Male</label>
+                    @Html.RadioButtonFor(m => m.Gender, "Male")
+                    <label>Female</label>
+                    @Html.RadioButtonFor(m => m.Gender, "Female")
+                </td>
+
+
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Mobile)</td>
+                <td>
+                    @Html.TextBoxFor(m => m.Mobile, new { @class = "", placeholder = "Enter Mobile", style = "margin-bottom:7px;" })
+                </td>
+                <td> @Html.ValidationMessageFor(y => y.Mobile)</td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(x => x.Email)
+                </td>
+                <td>
+                    @Html.TextBoxFor(m => m.Email, new { @class = "", placeholder = "Enter Email", style = "margin-bottom:7px;" })
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(y => y.Email)
+
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Register" />
+                </td>
+            </tr>
+        </table>
+        
+       
+
+        
+
+        
+
+        
+       
+
+       
+        
+    </div>
+
+}
+
+
+
+
+
+

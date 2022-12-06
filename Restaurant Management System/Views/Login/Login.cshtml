@@ -1,0 +1,49 @@
+﻿@model Restaurant_Management_System.Models.LoginModel
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2 style="text-align:center">Login</h2>
+
+
+@using (Html.BeginForm())
+{
+    <fieldset>
+        
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        @if (ViewBag.Message != null)
+        {
+            <div style="border: 3px solid red">
+                @ViewBag.Message
+            </div>
+        }
+
+        <table align="center">
+            <tr>
+                <td>@Html.LabelFor(a => a.UserName)</td>
+                <td>@Html.TextBoxFor(a => a.UserName,  new { @class = "", placeholder = "Enter Username", style = "margin-bottom:7px;" })</td>
+                <td>@Html.ValidationMessageFor(a => a.UserName)</td>
+            </tr>
+            <tr>
+                <td> @Html.LabelFor(a => a.Password)</td>
+                <td>@Html.PasswordFor(a => a.Password, new { @class = "", placeholder = "Enter password", style = "margin-bottom:7px;" })</td>
+                <td>@Html.ValidationMessageFor(a => a.Password)</td>
+            </tr>
+            <tr>
+                <td>@Html.ActionLink("Not an existing user? please register", "Register")</td>
+
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Login" />
+                </td>
+                <td></td>
+            </tr>
+        </table>
+    </fieldset>
+}
+
+
+
