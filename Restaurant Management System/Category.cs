@@ -14,7 +14,16 @@ namespace Restaurant_Management_System
     
     public partial class Category
     {
-        public int CategoryId { get; set; }
-        public string CategoryName { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Category()
+        {
+            this.Menus = new HashSet<Menu>();
+        }
+    
+        public int CATEGORY_ID { get; set; }
+        public string CATEGORY_NAME { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Menu> Menus { get; set; }
     }
 }

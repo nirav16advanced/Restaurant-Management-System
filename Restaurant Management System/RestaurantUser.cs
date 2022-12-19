@@ -14,11 +14,15 @@ namespace Restaurant_Management_System
     
     public partial class RestaurantUser
     {
-        public int UserID { get; set; }
-        public string UserName { get; set; }
-        public string Password { get; set; }
-        public string Gender { get; set; }
-        public string Mobile { get; set; }
-        public string Email { get; set; }
+        public int USER_ID { get; set; }
+        public string USERNAME { get; set; }
+        public string PASSWORD { get; set; }
+        public string GENDER { get; set; }
+        public string MOBILE { get; set; }
+        public string EMAIL { get; set; }
+        public string CREATED_BY { get; set; }
+        public Nullable<System.DateTime> CREATED_DATE { get; set; }
+        public string UPDATED_BY { get; set; }
+        public Nullable<System.DateTime> UPDATED_DATE { get; set; }
     }
 }

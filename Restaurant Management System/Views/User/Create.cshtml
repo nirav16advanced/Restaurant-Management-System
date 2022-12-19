@@ -3,5 +3,16 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Data created succesfully</h2>
+@if (ViewBag.ErrorMessage != null)
+{
+    <h2 style="text-align: center;">@ViewBag.ErrorMessage</h2>
+}
+else
+{
+<h2 style="text-align: center;">User Created successfully</h2>
+<h2 style="text-align:center;">Welcome to the Roof Top Restaurant</h2>
+}
+
+
+
 

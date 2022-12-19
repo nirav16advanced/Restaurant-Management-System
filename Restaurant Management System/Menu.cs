@@ -11,13 +11,22 @@ namespace Restaurant_Management_System
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Menu
     {
-        public int ItemID { get; set; }
-        public string Name { get; set; }
-        public Nullable<decimal> Price { get; set; }
-        public string Type { get; set; }
-        public string CategoryName { get; set; }
+        public int ITEM_ID { get; set; }
+        public string NAME { get; set; }
+        public decimal PRICE { get; set; }
+
+        [Display(Name = "Type")]
+        public string TYPE { get; set; }
+        public int CATEGORY_ID { get; set; }
+        public string CREATED_BY { get; set; }
+        public Nullable<System.DateTime> CREATED_DATE { get; set; }
+        public string UPDATED_BY { get; set; }
+        public Nullable<System.DateTime> UPDATED_DATE { get; set; }
+    
+        public virtual Category Category { get; set; }
     }
 }

@@ -1,85 +1,75 @@
-﻿@model IEnumerable<Restaurant_Management_System.Menu>
+﻿
+@model IEnumerable<Restaurant_Management_System.Menu>
 
 @{
     ViewBag.Title = "Menu";
 }
+
+<head>
+    <script type="text/javascript">
+        function preventBack() { window.history.forward(); }
+        setTimeout("preventBack()", 0);
+        window.onunload = function () { null };
+    </script>
+</head>
+
+
 <link href="../Content/StyleSheet.css" rel="stylesheet" />
-
-<h2 style="text-align:center">Menu Dashboard</h2>
-<fieldset style="font-size:14px;">
-    @if (Session["UserName"] != null)
-    {
-        <text>Welcome @Session["UserName"].ToString() </text>
-    }
-</fieldset>
-<br />
-
-
-@using (Html.BeginForm("Create", "Login", FormMethod.Get))
-{
-
-    <input type="submit" value="Create New Menu" />
-}
+<script type="text/javascript" asp-append-version="true" src="~/lib/kendo-ui/kendo.custom.min.js"></script>
 
 <div>
-    @using (Html.BeginForm("Search", "Login", FormMethod.Get))
-    {
-        @Html.TextBox("search")
-        <input type="submit" value="Search" />
-    }
+    <div style="margin-left:15px;">
+        <h2>Menu</h2>
+    </div>
+
+    <div  style="margin-left:15px" >
+        @using (Html.BeginForm("Create", "Login", FormMethod.Get))
+        {
+
+            <input type="submit" value="Create New Menu" />
+        }
+
+    </div>
+
+    <div  style="margin-left:15px; margin-top:10px" >
+        @using (Html.BeginForm("Search", "Login", FormMethod.Get))
+        {
+            @Html.TextBox("search")
+            <input type="submit" value="Search" />
+        }
+
+    </div>
 
 </div>
 
-<table class="table table-bordered">
-    <thead>
-        <tr>
+    
 
-            <th>Menu Name</th>
-            <th>Price</th>
-            <th>Type</th>           
-            <th>Category</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
+   
 
-                <td>@item.Name</td>
-                <td>@item.Price</td>
-                <td>@item.Type</td>
-
-                <td>@item.CategoryName</td>
-
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { itemid = item.ItemID })
-                    @Html.ActionLink("Delete", "Delete", new { itemid = item.ItemID })
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
 
 
 <div id="DivGrid">
+
+
+
     @{
-        var grid = new WebGrid(source: Model, canPage: true, rowsPerPage: 3, defaultSort: "BookId");
+        var grid = new WebGrid(source: Model, canPage: true, rowsPerPage: 3);
 
         {
-            <div><strong> @ViewBag.SearchParameter</strong> | @grid.TotalRowCount @Html.Label("Record(s) found")</div>
-            @grid.GetHtml(tableStyle: "PGrid", headerStyle: "Header", htmlAttributes: new { id = "DataTable" }, columns: grid.Columns(
-                     grid.Column("BookId", "Book ID"),
-                     grid.Column("Name", "Book Title"),
-                     grid.Column("Category"),
-                     grid.Column("CategoryId", "Categogy ID"),
-                     grid.Column("", header: "Action", format: @<text>@Html.ActionLink("Edit", "Edit", new { id = item.BookId }) | @Html.ActionLink("Delete", "Delete", new { id = item.BookId })</text>)));
+
+            <div style="margin-left:15px"><strong> @ViewBag.SearchParameter</strong> | @grid.TotalRowCount @Html.Label("Record(s) found")</div>
+            @grid.GetHtml(tableStyle: "PGrid", headerStyle: "Header", htmlAttributes: new { id = "DataTable" }, columns:
+            grid.Columns(
+
+                        grid.Column("NAME", "Menu Name"),
+                        grid.Column("PRICE", "Price"),
+                        grid.Column("TYPE", "Type"),
+                        grid.Column("Category.CATEGORY_NAME", "Category Name"),
+                        grid.Column("", header: "Action", format: @<text>@Html.ActionLink("Edit", "Edit", new { itemid = item.ITEM_ID }) | @Html.ActionLink("Delete", "Delete", new { itemid = item.ITEM_ID })</text>)));
         }
-
     }
-</div>
-@using (Html.BeginForm("Logout", "Login"))
-{
 
-    <input type="submit" value="Logout" style="position: absolute; right: 0;" />
-}
+</div>
+
+
+

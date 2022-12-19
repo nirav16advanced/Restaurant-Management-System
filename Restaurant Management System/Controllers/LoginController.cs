@@ -1,14 +1,20 @@
-﻿using Restaurant_Management_System.Models;
+﻿using NLog;
+using Restaurant_Management_System.Common;
+using Restaurant_Management_System.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 
 namespace Restaurant_Management_System.Controllers
 {
     public class LoginController : Controller
     {
+        private readonly ILogger logger = LogManager.GetCurrentClassLogger();
         // GET: Login
         public ActionResult Login()
         {
@@ -28,13 +34,15 @@ namespace Restaurant_Management_System.Controllers
         {
             if (ModelState.IsValid)
             {
+                //Password decryptPassword = new Password();
+                PasswordBase64 decryptPassword = new PasswordBase64();
                 using (SampleDBEntities db = new SampleDBEntities())
                 {
-                    var obj = db.RestaurantUsers.Where(a => a.UserName.Equals(objUser.UserName) && a.Password.Equals(objUser.Password)).FirstOrDefault();
-                    if (obj != null)
+                    var obj = db.RestaurantUsers.Where(a => a.USERNAME.Equals(objUser.UserName)).FirstOrDefault();
+                    if (obj != null && PasswordBase64.DecryptPassword(obj.PASSWORD) == objUser.Password)
                     {
-                        Session["UserID"] = obj.UserID.ToString();
-                        Session["UserName"] = obj.UserName.ToString();
+                        Session["UserID"] = obj.USER_ID.ToString();
+                        Session["UserName"] = obj.USERNAME.ToString();
                         return RedirectToAction("Menu");
                     }
                     else
@@ -42,29 +50,61 @@ namespace Restaurant_Management_System.Controllers
                         ViewBag.Message = "UserName or Password is incorrect";
                     }
                 }
+
             }
             return View(objUser);
         }
+
         [HttpGet]
         public ActionResult Search(string search)
         {
             SampleDBEntities db = new SampleDBEntities();
-            return View(db.Menus.Where(x=>x.Name.Contains(search) || x.CategoryName.Contains(search) || x.Type.Contains(search) || search == null).ToList());
+            return View(db.Menus.Where(x=>x.NAME.Contains(search)  || x.TYPE.Contains(search) || search == null).ToList());
         }
 
         [HttpGet]
         public ActionResult Create()
         {
+            SelectListItem[] courseName = GetCourseList();
+
             return View();
         }
 
         [HttpPost]
         public ActionResult Create(Menu menu)
         {
-            SampleDBEntities db = new SampleDBEntities();
-            db.Menus.Add(menu);
-            db.SaveChanges();
-            return RedirectToAction("Menu");
+            SelectListItem[] courseName = GetCourseList();
+
+            try
+            {
+                SampleDBEntities db = new SampleDBEntities();
+                menu.CREATED_BY = Session["UserName"].ToString();
+                menu.CREATED_DATE = DateTime.Now;
+               // menu.UPDATED_BY = null;
+                //menu.UPDATED_DATE = DateTime.Now;
+                db.Menus.Add(menu);
+                db.SaveChanges();
+                return RedirectToAction("Menu");
+            }
+            catch (System.Data.Entity.Validation.DbEntityValidationException dbEx)
+            {
+                
+                Exception raise = dbEx;
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        string message = string.Format("{0}:{1}",
+                            validationErrors.Entry.Entity.ToString(),
+                            validationError.ErrorMessage);
+                        // raise a new exception nesting  
+                        // the current instance as InnerException  
+                        raise = new InvalidOperationException(message, raise);
+                    }
+                }
+                throw raise;
+            }
+
         }
 
         public ActionResult Menu()
@@ -72,7 +112,9 @@ namespace Restaurant_Management_System.Controllers
             if (Session["UserID"] != null)
             {
                 SampleDBEntities db = new SampleDBEntities();
-                return View(db.Menus.ToList());
+
+                var menu = db.Menus.Include(m => m.Category).ToList();
+                return View(menu);
                 
             }
             else
@@ -83,10 +125,14 @@ namespace Restaurant_Management_System.Controllers
         }
 
         [HttpGet]
-        public ActionResult Edit(int itemid)
+        public ActionResult Edit(int? itemid)
         {
+            SelectListItem[] courseName = GetCourseList();
+
             SampleDBEntities db = new SampleDBEntities();
-            Menu m = db.Menus.Single(x => x.ItemID == itemid);
+            Menu m = db.Menus.Single(x => x.ITEM_ID == itemid);
+            //m.UPDATED_BY = Session["UserName"].ToString();
+            //m.UPDATED_DATE = DateTime.Now;
             return View(m);
         }
 
@@ -94,9 +140,13 @@ namespace Restaurant_Management_System.Controllers
 
         public ActionResult Edit(Menu menu)
         {
-            if(ModelState.IsValid)
+
+            if (ModelState.IsValid)
             {
                 SampleDBEntities db = new SampleDBEntities();
+                
+                menu.UPDATED_BY = Session["UserName"].ToString();
+                menu.UPDATED_DATE = DateTime.Now;
                 db.Entry(menu).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Menu");
@@ -105,10 +155,12 @@ namespace Restaurant_Management_System.Controllers
         }
 
         [HttpGet]
-        public ActionResult Delete(int itemid)
+        public ActionResult Delete(int? itemid)
         {
+            SelectListItem[] courseName = GetCourseList();
+
             SampleDBEntities db = new SampleDBEntities();
-            Menu m = db.Menus.Single(x => x.ItemID == itemid);
+            Menu m = db.Menus.Single(x => x.ITEM_ID == itemid);
             return View(m);
 
         }
@@ -117,7 +169,7 @@ namespace Restaurant_Management_System.Controllers
         public ActionResult DeleteConfirmed(int itemid)
         {
             SampleDBEntities db = new SampleDBEntities();
-            Menu m = db.Menus.Single(x => x.ItemID == itemid);
+            Menu m = db.Menus.Single(x => x.ITEM_ID == itemid);
             db.Menus.Remove(m);
             db.SaveChanges();
 
@@ -126,9 +178,30 @@ namespace Restaurant_Management_System.Controllers
 
         public ActionResult Logout()
         {
+            Session["UserId"] = null;
             return RedirectToAction("Login");
         }
-       
-        
+
+        protected SelectListItem[] GetCourseList()
+        {
+            SampleDBEntities db = new SampleDBEntities();
+
+            var names = db.Categories.Select(n => new SelectListItem()
+            {
+                Text = n.CATEGORY_NAME,
+                Value = n.CATEGORY_ID.ToString()
+            }).ToList();
+
+            SelectListItem[] courseName = names.ToArray();
+
+            return ViewBag.cname = courseName.Select(n => new SelectListItem()
+            {
+                Text = n.Text,
+                Value = n.Value.ToString()
+            }).ToArray(); ; // this will carry data to the view page
+
+        }
+
+
     }
 }

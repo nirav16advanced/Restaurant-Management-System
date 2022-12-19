@@ -9,8 +9,7 @@
             <tr>
                 <th>Menu Name</th>
                 <th>Price</th>
-                <th>Type</th>
-                
+                <th>Type</th>                
                 <th>CategoryName</th>
             </tr>
         </thred>
@@ -28,11 +27,11 @@
                 foreach (var item in Model)
                 {
                     <tr>
-                        <td>@item.Name</td>
-                        <td>@item.Price</td>
-                        <td>@item.Type</td>
+                        <td>@item.NAME</td>
+                        <td>@item.PRICE</td>
+                        <td>@item.TYPE</td>
                         
-                        <td>@item.CategoryName</td>
+                        <td>@item.CATEGORY_ID</td>
                     </tr>
                 }
             }

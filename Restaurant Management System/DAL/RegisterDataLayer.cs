@@ -5,6 +5,8 @@ using System.Data.SqlClient;
 using System.Data;
 using System.Linq;
 using System.Web;
+using Restaurant_Management_System.Common;
+using System.Text;
 
 namespace Restaurant_Management_System.DAL
 {
@@ -12,6 +14,7 @@ namespace Restaurant_Management_System.DAL
     {
         public string SignUpUser(UserModel model)
         {
+            
             SqlConnection con = new SqlConnection("Data Source=(LocalDb)\\MSSQLLocalDB;Initial Catalog=RestaurantDB;Integrated Security=True");
             try
             {
@@ -22,6 +25,8 @@ namespace Restaurant_Management_System.DAL
                 cmd.Parameters.AddWithValue("@Gender", model.Gender);
                 cmd.Parameters.AddWithValue("@Mobile", model.Mobile);
                 cmd.Parameters.AddWithValue("@Email", model.Email);
+                cmd.Parameters.AddWithValue("@CreatedBy", model.UserName);
+                cmd.Parameters.AddWithValue("@CreatedDate", model.CreatedDate);
 
                 con.Open();
                 cmd.ExecuteNonQuery();
@@ -37,5 +42,6 @@ namespace Restaurant_Management_System.DAL
                 return (ex.Message.ToString());
             }
         }
+        
     }
 }

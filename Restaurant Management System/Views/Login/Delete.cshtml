@@ -12,42 +12,38 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.NAME)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Name)
+            @Html.DisplayFor(model => model.NAME)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Price)
+            @Html.DisplayNameFor(model => model.PRICE)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Price)
+            @Html.DisplayFor(model => model.PRICE)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Type)
+            @Html.DisplayNameFor(model => model.TYPE)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Type)
+            @Html.DisplayFor(model => model.TYPE)
         </dd>
 
+        
         <dt>
-            @Html.DisplayNameFor(model => model.Avaliable)
+            @Html.DisplayNameFor(model => model.Category.CATEGORY_NAME)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Avaliable)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CategoryName)
-        </dt>
+            @Html.DropDownListFor(model => model.CATEGORY_ID, new SelectList(ViewBag.cname, "Value", "Text"), "---Select Category---", new { htmlAttributes = new { @class = "form-control" } })
 
-        <dd>
-            @Html.DisplayFor(model => model.CategoryName)
+            
         </dd>
 
     </dl>

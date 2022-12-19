@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using System.Xml.Linq;
+using CompareAttribute = System.ComponentModel.DataAnnotations.CompareAttribute;
 
 namespace Restaurant_Management_System.Models
 {
@@ -13,6 +15,7 @@ namespace Restaurant_Management_System.Models
 
         [Display(Name = "User Name:")] //used for dynamic changes in MVC
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter UserName")]
+        [Remote("doesUserNameExist", "User", ErrorMessage = "User name already exists. Please enter a different user name.")]
         [StringLength(20, MinimumLength = 5, ErrorMessage = "UserName should be min 4 and max 20 characters long")]
         public string UserName { get; set; }
 
@@ -41,5 +44,15 @@ namespace Restaurant_Management_System.Models
         [Display(Name = "Gender:")]
         [Required(ErrorMessage = "Please enter Gender")]
         public string Gender { get; set; }
+
+        public string CreatedBy { get; set; }
+
+        public DateTime CreatedDate { get; set; }
+
+        public string UpdatedBy { get; set; }
+
+        public DateTime UpdatedDate { get; set; }
+
+
     }
 }

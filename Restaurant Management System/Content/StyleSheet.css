@@ -8,6 +8,7 @@
 }
 
 .PGrid {
+    font-weight: bold;
     margin: 2%;
     border-collapse: collapse;
     width: 95%;
@@ -21,11 +22,13 @@
 }
 
 .PGrid th, .PGrid td {
+    font-weight: bold;
     border: 1px solid #0094ff;
     padding: 5px;
 }
 
 .altRow {
+    font-weight: bold;
     color: brown;
     background-color: #808080;
 }

@@ -3,13 +3,23 @@
     ViewBag.Title = "Index";
 }
 
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval");
+}
+
+<head>
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+</head>
+
 <h2 style="text-align:center">Register User</h2>
 </br>
 
 @using (Html.BeginForm("Create", "User", FormMethod.Post))
 {
-    
-    <div>
+
+    <div style="overflow-x: auto;">
         <table align="center">
             <tr>
                 <td>@Html.LabelFor(x => x.UserName)</td>
@@ -63,18 +73,18 @@
                 </td>
             </tr>
         </table>
-        
-       
 
-        
 
-        
 
-        
-       
 
-       
-        
+
+
+
+
+
+
+
+
     </div>
 
 }
