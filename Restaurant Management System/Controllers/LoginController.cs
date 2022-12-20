@@ -25,8 +25,7 @@ namespace Restaurant_Management_System.Controllers
             return View("~/Views/User/Index.cshtml");
         }
 
-
-
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
 
