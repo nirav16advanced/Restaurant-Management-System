@@ -2,14 +2,14 @@
     height: 100%;
     padding-top: 50px;
     padding-bottom: 20px;
-    background-image: url(../Image/wallpaper1.jpeg);
+    background-image: url(../Image/wallpaper4.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed
 }
 
 .background-image-class{
-    background-image: url(../Image/wallpaper1.jpeg);
+    background-image: url(../Image/wallpaper4.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed

@@ -160,10 +160,11 @@
     <Compile Include="Menu.cs">
       <DependentUpon>SampleDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CaptchaResponse.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RestaurantUser.cs">
+    <Compile Include="RESTAURANTUSER.cs">
       <DependentUpon>SampleDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="SampleDataModel.Context.cs">
@@ -919,6 +920,10 @@
     <Content Include="Image\download3.jpg" />
     <Content Include="Image\rooftop.jpg" />
     <Content Include="Image\wallpaper.jpeg" />
+    <Content Include="Image\wallpaper1.jpg" />
+    <Content Include="Image\wallpaper2.jpg" />
+    <Content Include="Image\wallpaper3.jpg" />
+    <Content Include="Image\wallpaper4.jpg" />
     <Content Include="SampleDataModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>SampleDataModel.Context.cs</LastGenOutput>
@@ -3728,6 +3733,7 @@
     <Content Include="Scripts\kendo\2022.3.1109\cultures\kendo.culture.aa-ET.min.js.map" />
     <Content Include="Scripts\kendo\2022.3.1109\cultures\kendo.culture.aa-ER.min.js.map" />
     <Content Include="Scripts\kendo\2022.3.1109\cultures\kendo.culture.aa-DJ.min.js.map" />
+    <Content Include="Views\Login\ForgotPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -4,7 +4,13 @@
     ViewBag.Title = "Create New Menu";
 }
 
-<h2 class=" text-success text-center">Create</h2>
+<head>
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+</head>
+
+<h2 class=" text-success text-center">Add Item</h2>
 
 @using (Html.BeginForm("Create", "Login", FormMethod.Post)) 
 {
@@ -45,7 +51,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.CATEGORY_ID, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownListFor(model => model.CATEGORY_ID, new SelectList(ViewBag.cname, "Value", "Text"), "---Select Category---", new { htmlAttributes = new { @class = "form-control" } })
+            @Html.DropDownListFor(model => model.CATEGORY_ID, new SelectList(ViewBag.iname, "Value", "Text"), "---Select Category---", new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.CATEGORY_ID, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -53,12 +59,12 @@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-default" />
+            <input type="submit" value="Add" class="btn btn-default" />
         </div>
     </div>
 </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Menu")
+<div class="col-md-1">
+    @Html.ActionLink("Back to List", "Menu", new { }, new { @class = "btn btn-default" })
 </div>

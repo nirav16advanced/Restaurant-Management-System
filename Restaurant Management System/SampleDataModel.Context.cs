@@ -25,8 +25,8 @@ namespace Restaurant_Management_System
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<RestaurantUser> RestaurantUsers { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Menu> Menus { get; set; }
+        public virtual DbSet<RESTAURANTUSER> RESTAURANTUSERs { get; set; }
     }
 }

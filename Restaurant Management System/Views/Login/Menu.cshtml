@@ -19,14 +19,14 @@
 
 <div>
     <div style="margin-left:15px;"> 
-        <h2>Menu</h2>   
+        <h2 style="text-align:center">Menu</h2>   
     </div>
 
     <div  style="margin-left:15px" >
         @using (Html.BeginForm("Create", "Login", FormMethod.Get))
         {
 
-            <input type="submit" value="Add Menu" />
+            <input type="submit" value="Add Item" />
         }
 
     </div>
@@ -47,11 +47,11 @@
 
 
     @{
-        var grid = new WebGrid(source: Model, canPage: true, rowsPerPage: 3);
-
+        var grid = new WebGrid(source: Model, canPage: true, rowsPerPage: 3, defaultSort: "ITEM_ID");
+        if (Model.Count() > 0)
         {
 
-            <div style="margin-left:15px"><strong> @ViewBag.SearchParameter</strong> | @grid.TotalRowCount @Html.Label("Record(s) found")</div>
+            
             @grid.GetHtml(tableStyle: "PGrid", headerStyle: "Header", htmlAttributes: new { id = "DataTable" }, columns:
             grid.Columns(
 
@@ -60,10 +60,17 @@
                         grid.Column("TYPE", "Type"),
                         grid.Column("Category.CATEGORY_NAME", "Category Name"),
                         grid.Column("", header: "Action", format: @<text>@Html.ActionLink("Edit", "Edit", new { itemid = item.ITEM_ID }) | @Html.ActionLink("Delete", "Delete", new { itemid = item.ITEM_ID })</text>)));
+            <div style="margin-left:15px"><strong> @ViewBag.SearchParameter</strong> | @grid.TotalRowCount @Html.Label("Record(s) found")</div>
+        }
+        else
+        {
+            <hr />@Html.Label("No Record Found")<hr />
         }
     }
 
 </div>
+
+
 
 
 

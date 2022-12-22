@@ -12,7 +12,7 @@ namespace Restaurant_Management_System
     using System;
     using System.Collections.Generic;
     
-    public partial class RestaurantUser
+    public partial class RESTAURANTUSER
     {
         public int USER_ID { get; set; }
         public string USERNAME { get; set; }

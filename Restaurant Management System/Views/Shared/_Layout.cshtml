@@ -18,6 +18,8 @@
                     <span class="icon-bar"></span>
                 </button>
                 @Html.ActionLink("Roof Top Restaurant & Cafe", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+               
+
             </div>
             <div class="navbar-collapse collapse">
                 @if (Session["UserId"] == null)
@@ -51,7 +53,7 @@
     </div>
     <div >
         @RenderBody()
-        <hr />
+           
         
     </div>
 

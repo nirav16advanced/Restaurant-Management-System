@@ -4,40 +4,41 @@
 }
 
 
-    <table class="table table-striped">
-        <thred>
-            <tr>
-                <th>Menu Name</th>
-                <th>Price</th>
-                <th>Type</th>                
-                <th>CategoryName</th>
-            </tr>
-        </thred>
-        <tbody>
-            @if (Model.Count() == 0)
-            {
-                <tr>
-                    <td colspan="3" style="color:red">
-                        NO match any document
-                    </td>
-                </tr>
-            }
-            else
-            {
-                foreach (var item in Model)
-                {
-                    <tr>
-                        <td>@item.NAME</td>
-                        <td>@item.PRICE</td>
-                        <td>@item.TYPE</td>
-                        
-                        <td>@item.CATEGORY_ID</td>
-                    </tr>
-                }
-            }
-        </tbody>
-    </table>
-    <div>
-        @Html.ActionLink("Back to List", "Menu")
-    </div>
+
+
+<link href="../Content/StyleSheet.css" rel="stylesheet" />
+<script type="text/javascript" asp-append-version="true" src="~/lib/kendo-ui/kendo.custom.min.js"></script>
+
+
+<div style="margin-left:15px;">
+    <h2 style="text-align:center">Search</h2>
+</div>
+
+<div id="DivGrid">
+
+
+
+    @{
+        var grid = new WebGrid(source: Model, canPage: true, rowsPerPage: 3);
+
+        {
+
+            <div style="margin-left:15px"><strong> @ViewBag.SearchParameter</strong> | @grid.TotalRowCount @Html.Label("Record(s) found")</div>
+            @grid.GetHtml(tableStyle: "PGrid", headerStyle: "Header", htmlAttributes: new { id = "DataTable" }, columns:
+            grid.Columns(
+
+                        grid.Column("NAME", "Menu Name"),
+                        grid.Column("PRICE", "Price"),
+                        grid.Column("TYPE", "Type"),
+                        grid.Column("Category.CATEGORY_NAME", "Category Name"),
+                        grid.Column("", header: "Action", format: @<text>@Html.ActionLink("Edit", "Edit", new { itemid = item.ITEM_ID }) | @Html.ActionLink("Delete", "Delete", new { itemid = item.ITEM_ID })</text>)));
+        }
+    }
+
+</div>
+
+<div class="col-md-1">
+    @Html.ActionLink("Back to List", "Menu", new { }, new { @class = "btn btn-default" })
+</div>
+
 

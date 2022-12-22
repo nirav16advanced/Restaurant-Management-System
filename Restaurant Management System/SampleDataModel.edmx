@@ -26,7 +26,7 @@
           <Property Name="UPDATED_BY" Type="nvarchar" MaxLength="50" />
           <Property Name="UPDATED_DATE" Type="datetime" />
         </EntityType>
-        <EntityType Name="RestaurantUser">
+        <EntityType Name="RESTAURANTUSER">
           <Key>
             <PropertyRef Name="USER_ID" />
           </Key>
@@ -56,7 +56,7 @@
         <EntityContainer Name="SampleDBModelStoreContainer">
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Menu" EntityType="Self.Menu" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="RestaurantUser" EntityType="Self.RestaurantUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RESTAURANTUSER" EntityType="Self.RESTAURANTUSER" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Menu_Category" Association="Self.FK_Menu_Category">
             <End Role="Category" EntitySet="Category" />
             <End Role="Menu" EntitySet="Menu" />
@@ -67,29 +67,14 @@
     <edmx:ConceptualModels>
       <Schema Namespace="SampleDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="SampleDBEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="RestaurantUsers" EntityType="SampleDBModel.RestaurantUser" />
           <EntitySet Name="Categories" EntityType="SampleDBModel.Category" />
           <EntitySet Name="Menus" EntityType="SampleDBModel.Menu" />
+          <EntitySet Name="RESTAURANTUSERs" EntityType="SampleDBModel.RESTAURANTUSER" />
           <AssociationSet Name="FK_Menu_Category" Association="SampleDBModel.FK_Menu_Category">
             <End Role="Category" EntitySet="Categories" />
             <End Role="Menu" EntitySet="Menus" />
           </AssociationSet>
         </EntityContainer>
-        <EntityType Name="RestaurantUser">
-          <Key>
-            <PropertyRef Name="USER_ID" />
-          </Key>
-          <Property Name="USER_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="USERNAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PASSWORD" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="GENDER" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="MOBILE" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="EMAIL" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CREATED_BY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CREATED_DATE" Type="DateTime" Precision="3" />
-          <Property Name="UPDATED_BY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="UPDATED_DATE" Type="DateTime" Precision="3" />
-        </EntityType>
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="CATEGORY_ID" />
@@ -113,6 +98,21 @@
           <Property Name="UPDATED_DATE" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Category" Relationship="SampleDBModel.FK_Menu_Category" FromRole="Menu" ToRole="Category" />
         </EntityType>
+        <EntityType Name="RESTAURANTUSER">
+          <Key>
+            <PropertyRef Name="USER_ID" />
+          </Key>
+          <Property Name="USER_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="USERNAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PASSWORD" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="GENDER" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="MOBILE" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="EMAIL" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CREATED_BY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CREATED_DATE" Type="DateTime" Precision="3" />
+          <Property Name="UPDATED_BY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UPDATED_DATE" Type="DateTime" Precision="3" />
+        </EntityType>
         <Association Name="FK_Menu_Category">
           <End Type="SampleDBModel.Category" Role="Category" Multiplicity="1" />
           <End Type="SampleDBModel.Menu" Role="Menu" Multiplicity="*" />
@@ -131,22 +131,6 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="SampleDBModelStoreContainer" CdmEntityContainer="SampleDBEntities">
-          <EntitySetMapping Name="RestaurantUsers">
-            <EntityTypeMapping TypeName="SampleDBModel.RestaurantUser">
-              <MappingFragment StoreEntitySet="RestaurantUser">
-                <ScalarProperty Name="UPDATED_DATE" ColumnName="UPDATED_DATE" />
-                <ScalarProperty Name="UPDATED_BY" ColumnName="UPDATED_BY" />
-                <ScalarProperty Name="CREATED_DATE" ColumnName="CREATED_DATE" />
-                <ScalarProperty Name="CREATED_BY" ColumnName="CREATED_BY" />
-                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
-                <ScalarProperty Name="MOBILE" ColumnName="MOBILE" />
-                <ScalarProperty Name="GENDER" ColumnName="GENDER" />
-                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
-                <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
-                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="SampleDBModel.Category">
               <MappingFragment StoreEntitySet="Category">
@@ -167,6 +151,22 @@
                 <ScalarProperty Name="PRICE" ColumnName="PRICE" />
                 <ScalarProperty Name="NAME" ColumnName="NAME" />
                 <ScalarProperty Name="ITEM_ID" ColumnName="ITEM_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RESTAURANTUSERs">
+            <EntityTypeMapping TypeName="SampleDBModel.RESTAURANTUSER">
+              <MappingFragment StoreEntitySet="RESTAURANTUSER">
+                <ScalarProperty Name="UPDATED_DATE" ColumnName="UPDATED_DATE" />
+                <ScalarProperty Name="UPDATED_BY" ColumnName="UPDATED_BY" />
+                <ScalarProperty Name="CREATED_DATE" ColumnName="CREATED_DATE" />
+                <ScalarProperty Name="CREATED_BY" ColumnName="CREATED_BY" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="MOBILE" ColumnName="MOBILE" />
+                <ScalarProperty Name="GENDER" ColumnName="GENDER" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

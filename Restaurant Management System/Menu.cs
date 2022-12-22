@@ -12,19 +12,39 @@ namespace Restaurant_Management_System
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Web.Mvc;
 
     public partial class Menu
     {
+
         public int ITEM_ID { get; set; }
+
+        [Display(Name = "Item Name:")] //used for dynamic changes in MVC
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter Item Name")]
+        [Remote("doesItemExist", "Login", ErrorMessage = "Item already exists. Please enter a different item.")]
         public string NAME { get; set; }
+
+
+        [Display(Name = "Price:")] //used for dynamic changes in MVC
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter Price")]
         public decimal PRICE { get; set; }
 
-        [Display(Name = "Type")]
+
+        [Display(Name = "Type:")] //used for dynamic changes in MVC
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please select Type")]
         public string TYPE { get; set; }
+
+
+        [Display(Name = "Category")] //used for dynamic changes in MVC
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please select category")]
         public int CATEGORY_ID { get; set; }
+
         public string CREATED_BY { get; set; }
+
         public Nullable<System.DateTime> CREATED_DATE { get; set; }
+
         public string UPDATED_BY { get; set; }
+
         public Nullable<System.DateTime> UPDATED_DATE { get; set; }
     
         public virtual Category Category { get; set; }
