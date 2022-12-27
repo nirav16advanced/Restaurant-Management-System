@@ -27,7 +27,7 @@ namespace Restaurant_Management_System.Models
 
         [Display(Name = "Email:")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter Email")]
-        [RegularExpression(("^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$"), ErrorMessage = "Enter Valid Email")]
+        [RegularExpression(("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$"), ErrorMessage = "Enter valid Email-ID")]
         public string Email { get; set; }
 
         [Display(Name = "Password:")]

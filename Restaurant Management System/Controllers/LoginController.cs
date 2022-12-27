@@ -249,6 +249,8 @@ namespace Restaurant_Management_System.Controllers
         public ActionResult Logout()
         {
             Session["UserId"] = null;
+            logger.Info("User Logout.UserName=" + Session["UserName"]);
+
             return RedirectToAction("Login");
         }
 
@@ -336,7 +338,7 @@ namespace Restaurant_Management_System.Controllers
                             "<br/><br/> We have successfuly processed your request for forget password." +
                             "<br/><br/> Your <br/> Admin-Id : " + admin.USER_ID +
                             "<br/>      Password : " + PasswordBase64.DecryptPassword(admin.PASSWORD) +
-                            "<br/><br/> We were happy to help you..! :)" +
+                            "<br/><br/> You can access now with this password! :)" +
                             "<br/><br/> Regards" +
                             "<br/> Restaurant Management System";
 
@@ -369,7 +371,7 @@ namespace Restaurant_Management_System.Controllers
             return View();
         }
         
-        //sending email
+        //method for forget password
         [HttpPost]
         public ActionResult ForgotPassword(string userName)
         {
